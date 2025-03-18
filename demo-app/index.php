@@ -1,22 +1,17 @@
 <?php
-$host = 'mysql_host';
-$dbname = 'demo_db';
-$user = 'user';
-$pass = 'password';
+include 'database/helper.php';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    echo "Connected to MySQL successfully!<br>";
-} catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+$dbType = 'sqlite';
+
+if ($dbType == 'mysql') {
+    include 'database/mysql.php';
+} elseif ($dbType == 'sqlite') {
+    include 'database/sqlite.php';
 }
-
+echo "DB Type: {$dbType}<br>";
 # create a table
-$sql = "CREATE TABLE IF NOT EXISTS users (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL UNIQUE
-)";
+$sql = getCreateUserSQL($dbType);
+
 $pdo->exec($sql);
 echo "Table users created successfully!<br><br>";
 
