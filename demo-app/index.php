@@ -1,10 +1,12 @@
 <?php
 include 'database/helper.php';
 
-$dbType = 'sqlite';
+$dbType = 'postgresql';
 
 if ($dbType == 'mysql') {
     include 'database/mysql.php';
+} elseif ($dbType == 'postgresql') {
+    include 'database/postgresql.php';
 } elseif ($dbType == 'sqlite') {
     include 'database/sqlite.php';
 }
