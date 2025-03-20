@@ -6,6 +6,8 @@ FROM php:8.3-fpm
 # Install dependencies (mysql)
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
+# Install Redis extension
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Set working directory
 WORKDIR /var/www/docker-app
