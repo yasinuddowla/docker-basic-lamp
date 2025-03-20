@@ -5,7 +5,7 @@ services:
         volumes:
             - ./demo-app:/var/www/docker-app
         depends_on:
-            - postgres
+            - db_service
         networks:
             - custom_network
     web:
@@ -20,30 +20,32 @@ services:
             - app
         networks:
             - custom_network
-    postgres:
-        image: postgres:latest
-        container_name: postgres_db
-        restart: always
+    # db_service:
+    #     image: postgres:latest
+    #     container_name: postgres_db
+    #     restart: always
+    #     environment:
+    #         POSTGRES_USER: myuser
+    #         POSTGRES_PASSWORD: mypassword
+    #         POSTGRES_DB: mydatabase
+    #     ports:
+    #         - "5432:5432"
+    #     volumes:
+    #         - db_data:/var/lib/postgresql/data
+    #     networks:
+    #         - custom_network
+    db_service:
+        image: mysql:latest
+        container_name: simple-mysql
         environment:
-            POSTGRES_USER: myuser
-            POSTGRES_PASSWORD: mypassword
-            POSTGRES_DB: mydatabase
-        ports:
-            - "5432:5432"
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: demo_db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
         volumes:
-            - db_data:/var/lib/postgresql/data
+            - db_data:/var/lib/mysql
         networks:
             - custom_network
-    # mysql_host:
-    #     image: mysql:latest
-    #     container_name: simple-mysql
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: root
-    #         MYSQL_DATABASE: demo_db
-    #         MYSQL_USER: user
-    #         MYSQL_PASSWORD: password
-    #     volumes:
-    #         - db_data:/var/lib/mysql
 
 volumes:
     db_data:

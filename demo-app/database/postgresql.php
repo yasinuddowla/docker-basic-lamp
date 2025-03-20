@@ -1,5 +1,5 @@
 <?php
-$dsn = "pgsql:host=postgres;port=5432;dbname=mydatabase;";
+$dsn = "pgsql:host=db_service;port=5432;dbname=mydatabase;";
 $user = "myuser";
 $password = "mypassword";
 

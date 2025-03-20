@@ -1,7 +1,7 @@
 <?php
 include 'database/helper.php';
 
-$dbType = 'postgresql';
+$dbType = 'mysql';
 
 if ($dbType == 'mysql') {
     include 'database/mysql.php';
